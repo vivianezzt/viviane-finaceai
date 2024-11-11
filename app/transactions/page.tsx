@@ -4,7 +4,8 @@ import { transctionColumns } from "./_columns";
 import AddTransactionButton from "../_components/add-transaction-button";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Navbar from "../_components/Navbar";
+import Navbar from "../_components/navbar";
+
 
 const TransactionsPage = async () => {
   const { userId } = await auth();
