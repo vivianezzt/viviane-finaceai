@@ -5,19 +5,23 @@ import {
   WalletIcon,
 } from "lucide-react";
 import SummaryCard from "./summary-card";
+
 interface SummaryCards {
   month: string;
   balance: number;
   depositsTotal: number;
   investmentsTotal: number;
   expensesTotal: number;
+  userCanAddTransaction: boolean;
 }
 
+// Se `SummaryCards` estiver esperando um `userCanAddTransaction` para o comportamento do botão
 const SummaryCards = async ({
   balance,
   depositsTotal,
   expensesTotal,
   investmentsTotal,
+  userCanAddTransaction,
 }: SummaryCards) => {
   return (
     <div className="space-y-6">
@@ -27,6 +31,7 @@ const SummaryCards = async ({
         title="Saldo"
         amount={balance}
         size="large"
+        userCanAddTransaction={userCanAddTransaction}
       />
 
       {/* Outros cards */}
