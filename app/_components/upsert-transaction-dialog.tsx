@@ -4,11 +4,13 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+
 import { z } from "zod";
 import {
   TransactionCategory,
