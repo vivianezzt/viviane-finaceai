@@ -73,4 +73,4 @@ Este projeto é distribuído sob a licença MIT. Veja o arquivo [LICENSE](./LICE
 
 Este README fornece uma visão geral e orientações básicas para quem deseja usar ou contribuir com o **Finance-AI**.## Finance-ai
 
-Aplicação de 
+Aplicação de Viviane Aguiar - 2024  
