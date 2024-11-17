@@ -9,7 +9,7 @@
       }
     ],
     "env": {
-      "DATABASE_URL": "your_database_url"
+      "DATABASE_URL": "postgresql://neondb_owner:vtpeq3zwK6sF@ep-summer-meadow-a5w85zhg.us-east-2.aws.neon.tech/neondb?sslmode=require"
     },
     "hooks": {
       "build": "npx prisma generate && next build"
