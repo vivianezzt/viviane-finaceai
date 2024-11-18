@@ -3,14 +3,11 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export const POST = async (request: Request) => {
-    if(!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET){
-        return NextResponse.error()
-    }
-  const signature = request.headers.get("stripe-signature");
-  if (!signature) {
+  if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
     return NextResponse.error();
   }
-  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+  const signature = request.headers.get("stripe-signature");
+  if (!signature) {
     return NextResponse.error();
   }
   const text = await request.text();
@@ -22,10 +19,10 @@ export const POST = async (request: Request) => {
     signature,
     process.env.STRIPE_WEBHOOK_SECRET,
   );
+
   switch (event.type) {
     case "invoice.paid": {
-
-      // Atualizar o usuario com seu novo plano
+      // Atualizar o usuário com o seu novo plano
       const { customer, subscription, subscription_details } =
         event.data.object;
       const clerkUserId = subscription_details?.metadata?.clerk_user_id;
@@ -43,25 +40,25 @@ export const POST = async (request: Request) => {
       });
       break;
     }
-    case 'customer.subscription.deleted': {
-      // Remover plano premium do susuario
+    case "customer.subscription.deleted": {
+      // Remover plano premium do usuário
       const subscription = await stripe.subscriptions.retrieve(
-        event.data.object.id
-      )
-      const clerkUserId = subscription.metadata.clerk_user_id
-      if(!clerkUserId){
-        return NextResponse.error()
+        event.data.object.id,
+      );
+      const clerkUserId = subscription.metadata.clerk_user_id;
+      if (!clerkUserId) {
+        return NextResponse.error();
       }
       await clerkClient().users.updateUser(clerkUserId, {
         privateMetadata: {
           stripeCustomerId: null,
-          stripeSubscriptionId: null
+          stripeSubscriptionId: null,
         },
         publicMetadata: {
           subscriptionPlan: null,
-        }
-      })
+        },
+      });
     }
   }
-  return NextResponse.json({ receive: true })
+  return NextResponse.json({ received: true });
 };
