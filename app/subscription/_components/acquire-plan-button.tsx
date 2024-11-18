@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export const AcquirePlanButton = () => {
   const {user} = useUser()
+  
   const handleAcquirePlanClick = async () => {
      const { sessionId } = await createStripeCheckout();
     if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
