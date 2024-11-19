@@ -18,6 +18,9 @@ const TransactionsPage = async () => {
     where: {
       userId,
     },
+    orderBy: {
+      date: "desc",
+    }
   });
   const user = await clerkClient.users.getUser(userId);
   const isPremium = user.publicMetadata.subscriptionPlan === "premium";
@@ -37,7 +40,7 @@ const TransactionsPage = async () => {
        <ScrollArea>
          <DataTable
           columns={transctionColumns}
-          data={transactions}
+          data={JSON.parse(JSON.stringify(transactions))}
         />
        </ScrollArea>
       </div>
